@@ -39,3 +39,22 @@ vector<vector<float>> read( string filename ){
     return ans ; 
 
 }
+
+
+void write( vector<vector<float>>& mat , string filename ) {
+
+    fstream myFile ; 
+    int rows = mat.size()  , columns = mat[0].size() ; 
+    myFile.open( filename , ios::out) ; 
+    if(myFile.is_open()){
+        myFile << columns << "\n" ;  // number of columns 
+        myFile << rows << "\n" ;  // number of rows
+        for( int col = 0 ; col  < columns ; col ++  ){
+            for( int row = 0 ; row < rows ; row ++ ){
+                myFile << mat[row][col] << "\n" ; 
+            }
+        }
+        myFile.close() ; 
+    }
+
+}

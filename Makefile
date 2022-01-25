@@ -11,8 +11,8 @@ relu.o: relu.cpp relu.h
 tanh.o: tanh.h tanh.cpp
 	g++ -c tanh.cpp
 
-file.o: file.cpp
+file.o: file.cpp matrixio.cpp
 	g++ -c file.cpp
 
 clean:
-	rm *.o
+	rm *.o file.out
