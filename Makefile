@@ -2,11 +2,17 @@
 
 # target: dependencies
 # 	action
-main: file.o relu.o
-	g++ file.o relu.o -o main
+file.out: file.o relu.o tanh.o
+	g++ file.o relu.o tanh.o -o file.out
 
-relu.o: relu.cpp
+relu.o: relu.cpp relu.h
 	g++ -c relu.cpp
+
+tanh.o: tanh.h tanh.cpp
+	g++ -c tanh.cpp
 
 file.o: file.cpp
 	g++ -c file.cpp
+
+clean:
+	rm *.o
