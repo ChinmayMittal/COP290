@@ -2,8 +2,8 @@
 
 # target: dependencies
 # 	action
-file.out: file.o relu.o tanh.o
-	g++ file.o relu.o tanh.o -o file.out
+file.out: file.o relu.o tanh.o sigmoid.o softmax.o
+	g++ file.o relu.o tanh.o sigmoid.o  softmax.o -o file.out
 
 relu.o: relu.cpp relu.h
 	g++ -c relu.cpp
@@ -11,7 +11,13 @@ relu.o: relu.cpp relu.h
 tanh.o: tanh.h tanh.cpp
 	g++ -c tanh.cpp
 
-file.o: file.cpp matrixio.cpp
+sigmoid.o: sigmoid.cpp sigmoid.h
+	g++ -c sigmoid.cpp 
+
+softmax.o: softmax.cpp softmax.h
+	g++ -c softmax.cpp 
+
+file.o: file.cpp matrixio.cpp vectorio.cpp
 	g++ -c file.cpp
 
 clean:

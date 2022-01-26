@@ -2,14 +2,20 @@
 #include<string>
 #include"relu.h"
 #include"tanh.h"
+#include"sigmoid.h"
 #include "matrixio.cpp"
+#include "vectorio.cpp"
+#include "softmax.h"
 
 using namespace std ; 
 
 int main( int argc , const char * argv [] ){
 
+
+    // for( auto ele : arr ) cout << ele  << " "; 
+
     string task(argv[1]);
-    cout << argc << "\n" ; 
+    // cout << argc << "\n" ; 
     try{
 
 
@@ -33,6 +39,25 @@ int main( int argc , const char * argv [] ){
         }else if( task == "pooling"){
 
         }else if( task == "probability"){
+            if(argc < 5 ){
+                throw ( "probability requires argumens in the format probability [type] [input_file_name] [output_file_name]") ; 
+            }
+            string typeOfProbability(argv[2]) , inputFileName( argv[3]) , outputFileName(argv[4]) ; 
+            if( typeOfProbability == "sigmoid"){
+
+                vector<float> arr =readVector(inputFileName);
+                sigmoid(arr) ; 
+                writeVector(outputFileName , arr ) ; 
+
+            }else if( typeOfProbability == "softmax"){
+
+                vector<float> arr =readVector(inputFileName);
+                softmax(arr) ; 
+                writeVector(outputFileName , arr ) ; 
+
+            }else{
+                throw ( typeOfProbability +  " is not supported, use softmax/sigmoid") ; 
+            }
 
         }else{
             throw ( task + " is an invalid argument to the program , choose either fullyconnected | activation | pooling | probability") ; 
