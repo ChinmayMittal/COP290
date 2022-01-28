@@ -6,6 +6,7 @@
 #include "matrixio.cpp"
 #include "vectorio.cpp"
 #include "softmax.h"
+#include"pooling.cpp"
 
 using namespace std ; 
 
@@ -22,11 +23,14 @@ int main( int argc , const char * argv [] ){
         if( task == "fullyconnected"){
 
         }else if( task == "activation"){
+
             if(argc < 5  ){
                 throw ( "activation requires arguments in the format activation (type) (input_file_name) (output_filename)") ; 
             }
+
             string activation(argv[2]) , inputFileName(argv[3]) , outputFileName(argv[4]);
             vector<vector<float>>mat = read(inputFileName) ;
+
             if( (activation == "relu")){
                 ReLU(mat) ; //// inplace termwise activation of the matrix 
                 write(mat , outputFileName) ;
@@ -36,13 +40,38 @@ int main( int argc , const char * argv [] ){
             }else {
                 throw ( activation +  " is not a valid activation, use relu/tanh") ; 
             }
+
+
         }else if( task == "pooling"){
 
+            if(argc < 6 ) { 
+                 throw ( "pooling requires arguments in the format pooling (type) (input_file_name) (stride) (output_filename)") ;
+            }
+
+            string poolingType(argv[2]) , inputFileName(argv[3]) , strideString(argv[4]) , outputFileName(argv[5]);
+            int stride = stoi(strideString) ;
+             vector<vector<float>>mat = read(inputFileName) ;
+            if( poolingType == "average"){
+                vector<vector<float>> reducedMatrix = pooling( mat, stride , poolingType ) ; 
+                write( reducedMatrix, outputFileName ) ; 
+
+            }else if( poolingType == "max"){
+                vector<vector<float>> reducedMatrix = pooling( mat, stride , poolingType ) ; 
+                write( reducedMatrix, outputFileName ) ; 
+            }else{
+                throw ( poolingType +  " is not a valid pooling type, use average/max") ; 
+            }
+
+
+
         }else if( task == "probability"){
+
             if(argc < 5 ){
                 throw ( "probability requires argumens in the format probability [type] [input_file_name] [output_file_name]") ; 
             }
+
             string typeOfProbability(argv[2]) , inputFileName( argv[3]) , outputFileName(argv[4]) ; 
+
             if( typeOfProbability == "sigmoid"){
 
                 vector<float> arr =readVector(inputFileName);
@@ -64,8 +93,10 @@ int main( int argc , const char * argv [] ){
         }
 
     }catch( string exp){
+        cout << "ERROR:  PROGRAM TERMINATING....\n" ; 
         cout << exp << "\n" ; 
     }catch( char const* exp){
+        cout << "ERROR:  PROGRAM TERMINATING....\n" ; 
         cout << exp << "\n" ; 
     }
 

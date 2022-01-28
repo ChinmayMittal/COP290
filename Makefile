@@ -17,7 +17,7 @@ sigmoid.o: sigmoid.cpp sigmoid.h
 softmax.o: softmax.cpp softmax.h
 	g++ -c softmax.cpp 
 
-file.o: file.cpp matrixio.cpp vectorio.cpp
+file.o: file.cpp matrixio.cpp vectorio.cpp pooling.cpp
 	g++ -c file.cpp
 
 clean:

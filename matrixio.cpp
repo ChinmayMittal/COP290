@@ -34,6 +34,8 @@ vector<vector<float>> read( string filename ){
             linenumber ++ ;  
         }
         myFile.close() ; 
+    }else{
+        throw ( filename + "  does not exists ") ; 
     }
      
     return ans ; 

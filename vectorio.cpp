@@ -24,6 +24,8 @@ vector<float> readVector( string inputFileName ) {
             linenumber ++ ; 
         }
         myFile.close() ; 
+    }else{
+        throw (  inputFileName + " does not exist " ) ; 
     }
 
     return ans ; 
