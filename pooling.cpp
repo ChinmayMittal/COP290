@@ -31,6 +31,8 @@ float accumulator( vector<float>&arr , string typeOfpooling ) {
 
 vector<vector<float>> pooling( vector<vector<float>>&mat , int stride ,  string poolingType , int filterSize = 2 ) {
 
+    filterSize = stride ; // assumption in this question 
+    
     int rows = mat.size() ; 
     int columns = mat[0].size() ; 
     int ansColumns = ( columns - filterSize ) / stride  + 1 , ansRows = ( rows - filterSize ) / stride + 1 ; 

@@ -7,6 +7,7 @@
 #include "vectorio.cpp"
 #include "softmax.h"
 #include"pooling.cpp"
+#include"matrixAlgebra.cpp"
 
 using namespace std ; 
 
@@ -21,6 +22,17 @@ int main( int argc , const char * argv [] ){
 
 
         if( task == "fullyconnected"){
+
+            if( argc < 6 ) {
+                throw ( "fully connected requires arguments in the form of fullyconnected (input_matrix_filename) (weight_matrix_filename) (bias_matrix_filename) (output_matrix_filename)") ;
+             }
+
+             string inputMatFileName( argv[2]) , weightMatFileName( argv[3]) , biasMatFileName( argv[4]) , outputFileName( argv[5]) ; 
+             vector<vector<float>>mat = read(inputMatFileName), weights = read( weightMatFileName) , bias = read(biasMatFileName);
+             vector<vector<float>> mulMat = mul( mat , weights) ; 
+             vector<vector<float>> ans = add( mulMat , bias) ; 
+             write( ans , outputFileName ) ; 
+
 
         }else if( task == "activation"){
 
@@ -100,14 +112,6 @@ int main( int argc , const char * argv [] ){
         cout << exp << "\n" ; 
     }
 
-
-    // cout << ReLU(5) ; 
-    // vector<vector<float>>mat = read("input.txt") ; 
-    // ReLU(mat) ; 
-    // write(mat , "relu.txt") ;
-    // vector<vector<float>>mat2 = read("input2.txt") ; 
-    // tanH(mat2) ; 
-    // write( mat2 , "tanh.txt") ; 
 
     return 0 ; 
 }
