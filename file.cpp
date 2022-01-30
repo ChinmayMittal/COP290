@@ -8,18 +8,16 @@
 #include "softmax.h"
 #include"pooling.cpp"
 #include"matrixAlgebra.cpp"
+#include"validator.h"
 
 using namespace std ; 
 
 int main( int argc , const char * argv [] ){
 
 
-    // for( auto ele : arr ) cout << ele  << " "; 
-
-    string task(argv[1]);
-    // cout << argc << "\n" ; 
+    string task(argv[1]); // stores the name of the function to be called ( fullyconnected/activation/pooling/probability)
+    
     try{
-
 
         if( task == "fullyconnected"){
 
@@ -28,10 +26,11 @@ int main( int argc , const char * argv [] ){
              }
 
              string inputMatFileName( argv[2]) , weightMatFileName( argv[3]) , biasMatFileName( argv[4]) , outputFileName( argv[5]) ; 
+             // get input, weight and bias matrices 
              vector<vector<float>>mat = read(inputMatFileName), weights = read( weightMatFileName) , bias = read(biasMatFileName);
-             vector<vector<float>> mulMat = mul( mat , weights) ; 
-             vector<vector<float>> ans = add( mulMat , bias) ; 
-             write( ans , outputFileName ) ; 
+             vector<vector<float>> mulMat = mul( mat , weights) ; // matrix multiplication 
+             vector<vector<float>> ans = add( mulMat , bias) ;  // matrix addition 
+             write( ans , outputFileName ) ; // output to filename
 
 
         }else if( task == "activation"){
@@ -61,8 +60,9 @@ int main( int argc , const char * argv [] ){
             }
 
             string poolingType(argv[2]) , inputFileName(argv[3]) , strideString(argv[4]) , outputFileName(argv[5]);
-            int stride = stoi(strideString) ;
-             vector<vector<float>>mat = read(inputFileName) ;
+            int stride = string_to_int_validator(strideString , "stride has to be a positive integer") ; // filter size is assumed to be (stride*stride)
+            vector<vector<float>>mat = read(inputFileName) ; // get input matrix 
+
             if( poolingType == "average"){
                 vector<vector<float>> reducedMatrix = pooling( mat, stride , poolingType ) ; 
                 write( reducedMatrix, outputFileName ) ; 
@@ -87,13 +87,13 @@ int main( int argc , const char * argv [] ){
             if( typeOfProbability == "sigmoid"){
 
                 vector<float> arr =readVector(inputFileName);
-                sigmoid(arr) ; 
+                sigmoid(arr) ; // inplace probability for the vector 
                 writeVector(outputFileName , arr ) ; 
 
             }else if( typeOfProbability == "softmax"){
 
                 vector<float> arr =readVector(inputFileName);
-                softmax(arr) ; 
+                softmax(arr) ; // inplace softmax for the vector 
                 writeVector(outputFileName , arr ) ; 
 
             }else{
@@ -101,10 +101,12 @@ int main( int argc , const char * argv [] ){
             }
 
         }else{
+            // invalid function module 
             throw ( task + " is an invalid argument to the program , choose either fullyconnected | activation | pooling | probability") ; 
         }
 
     }catch( string exp){
+        // ERROR HANDLING 
         cout << "ERROR:  PROGRAM TERMINATING....\n" ; 
         cout << exp << "\n" ; 
     }catch( char const* exp){
