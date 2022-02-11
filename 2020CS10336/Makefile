@@ -6,8 +6,8 @@ COMPILER_FLAGS = -fopenmp -lmkl_intel_lp64 -lmkl_core -lmkl_gnu_thread -lpthread
 MKL_LIB_DIRI = /home/chinmay/intel/oneapi/mkl/2022.0.2/lib/intel64
 MKL_INCLUDE_DIRI = /home/chinmay/intel/oneapi/mkl/2022.0.2/include
 
-yourcode.out: file.o relu.o tanh.o sigmoid.o softmax.o validators.o
-	g++ -L$(MKL_LIB_DIRI) -I$(MKL_INCLUDE_DIRI) file.o relu.o tanh.o sigmoid.o  softmax.o validators.o -o yourcode.out $(COMPILER_FLAGS)
+yourcode.out: file.o relu.o tanh.o sigmoid.o softmax.o validators.o pthreadopt.o timing.o
+	g++ -Wl,-rpath,$(MKL_LIB_DIRI) -L$(MKL_LIB_DIRI) -I$(MKL_INCLUDE_DIRI) file.o relu.o tanh.o sigmoid.o  softmax.o pthreadopt.o timing.o validators.o -o yourcode.out $(COMPILER_FLAGS)
 
 relu.o: relu.cpp relu.h
 	g++ -c relu.cpp
@@ -23,6 +23,12 @@ softmax.o: softmax.cpp softmax.h
 
 validators.o: validators.cpp validator.h
 	g++ -c validators.cpp
+
+pthreadopt.o: pthreadopt.cpp
+	g++ -c pthreadopt.cpp
+
+timing.o: timing.cpp
+	g++ -c timing.cpp
 
 file.o: file.cpp matrixio.cpp vectorio.cpp pooling.cpp matrixAlgebra.cpp
 	g++ -c -L$(MKL_LIB_DIRI) -I$(MKL_INCLUDE_DIRI) file.cpp $(COMPILER_FLAGS)

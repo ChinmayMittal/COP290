@@ -11,6 +11,7 @@
 #include"validator.h"
 #include"timing.h"
 #include"matGen.cpp"
+#include"optimization.h"
 #include"mkl.h"
 
 using namespace std ; 
@@ -18,7 +19,7 @@ using namespace std::chrono;
 
 int main( int argc , const char * argv [] ){
 
-    // vector<vector<float>>a(100,vector<float>(100)) ;
+    // vector<vector<float>>a(500,vector<float>(500)) ;
     // matGen(a,0,10) ;
     // write(a , "matrix.txt") ;  
     // matGen(a,0,10) ; 
@@ -41,9 +42,9 @@ int main( int argc , const char * argv [] ){
                 // naive implementation 
                 auto t1 = get_time() ; 
                 vector<vector<float>> mulMat = mul( mat , weights) ; // matrix multiplication 
+                vector<vector<float>> ans = add( mulMat , bias) ;  // matrix addition 
                 auto t2 = get_time() ; 
                 printTimeDuration("MATMUL NAIVE:" , t1 , t2 )  ; 
-                vector<vector<float>> ans = add( mulMat , bias) ;  // matrix addition 
                 write( ans , outputFileName ) ; // output to filename
             }else{
                 // optimized implementation 
@@ -69,7 +70,8 @@ int main( int argc , const char * argv [] ){
                 }else if( optimization == "openblas"){
 
                 }else if( optimization == "pthread"){
-
+                   vector<vector<float>> ans =  pthreadOpt(mat,weights,bias);
+                   write( ans , outputFileName ) ; 
                 }else{
                     throw ( optimization + " is not supported use mkl|openblas|pthread") ; 
                 }
