@@ -12,14 +12,13 @@
 #include"timing.h"
 #include"matGen.cpp"
 #include"optimization.h"
-#include"mkl.h"
 
 using namespace std ; 
 using namespace std::chrono;
 
 int main( int argc , const char * argv [] ){
 
-    // vector<vector<float>>a(500,vector<float>(500)) ;
+    // vector<vector<float>>a(5,vector<float>(5)) ;
     // matGen(a,0,10) ;
     // write(a , "matrix.txt") ;  
     // matGen(a,0,10) ; 
@@ -50,22 +49,7 @@ int main( int argc , const char * argv [] ){
                 // optimized implementation 
                 string optimization(argv[6]) ;
                 if(optimization == "mkl"){
-                     // Matrices
-                     double *A, *B, *C , *outputMatrix ;
-                     A = (double *)mkl_malloc(mat.size() * mat[0].size() * sizeof(double), 64);
-                     B = (double *)mkl_malloc(weights.size() * weights[0].size() * sizeof(double), 64);
-                     C = (double *)mkl_malloc(bias.size() * bias[0].size() * sizeof(double), 64);
-                     vec2Arr( A , mat ) ; vec2Arr( B , weights ) , vec2Arr(C,weights) ; 
-                     // Scale factors
-                     double alpha, beta;
-                     alpha = 1.0;
-                     beta = 1.0;
-                    auto mkl_t1 = get_time();
-                    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, mat.size() , weights[0].size() , mat[0].size(),
-                            alpha, A, mat[0].size() , B, weights[0].size(), beta, C, weights[0].size());
-                    auto mkl_t2 = get_time();                     
-                    printTimeDuration("MATMUL MKL:" , mkl_t1 , mkl_t2 )  ; 
-                    vector<vector<float>> ans = arr2Vec(C,bias.size(),bias[0].size());
+                    vector<vector<float>> ans =  mklOpt(mat,weights,bias) ; 
                     write( ans , outputFileName) ; 
                 }else if( optimization == "openblas"){
 
