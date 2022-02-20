@@ -27,7 +27,7 @@ void computeLatencies(std::vector<std::string> files, std::vector<std::string> l
         {
             std::pair<std::vector<std::vector<float>>, double> result = mulAndAdd_openblas(mat, weights, bias);
 
-            double latency = result.second;
+            double latency = 1000 * result.second;
             mean += latency;
             sd += latency * latency;
         }

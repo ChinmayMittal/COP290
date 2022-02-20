@@ -34,7 +34,7 @@ void computeLatencies(std::vector<std::string> files, std::vector<std::string> l
         {
             std::pair<std::vector<std::vector<float>>, double> result = pthreadOpt(mat, weights, bias);
 
-            double latency = result.second;
+            double latency = 1000 * result.second;
             mean += latency;
             sd += latency * latency;
         }
@@ -52,7 +52,7 @@ void computeLatencies(std::vector<std::string> files, std::vector<std::string> l
         {
             std::pair<std::vector<std::vector<float>>, double> result = mklOpt(mat, weights, bias);
 
-            double latency = result.second;
+            double latency = 1000 * result.second;
             mean += latency;
             sd += latency * latency;
         }
@@ -72,7 +72,7 @@ void computeLatencies(std::vector<std::string> files, std::vector<std::string> l
             vector<vector<float>> mulMat = mul(mat, weights); // matrix multiplication
             vector<vector<float>> ans = add(mulMat, bias);    // matrix addition
             auto t2 = get_time();
-            double latency = getTimeDuration(t1, t2);
+            double latency = 1000 * getTimeDuration(t1, t2);
             mean += latency;
             sd += latency * latency;
         }
