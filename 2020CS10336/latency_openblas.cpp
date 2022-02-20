@@ -33,6 +33,7 @@ void computeLatencies(std::vector<std::string> files, std::vector<std::string> l
         }
 
         mean /= RUNS;
+        sd /= RUNS;
         sd -= mean * mean;
         sd = sqrt(sd);
 
