@@ -1,5 +1,5 @@
 # COP290
-Course repository ( Chinmay Mittal, 2020CS10336) for COP-290  (Design Practices), 4th Semester IIT Delhi
+Course repository ( Chinmay Mittal, 2020CS10336 and Tanish Tuteja 2020CS10398) for COP-290  (Design Practices), 4th Semester IIT Delhi
 
 ---
 
@@ -101,3 +101,6 @@ Vectors and matrices are passed as reference, wherever possible, to avoid large 
 Seperate files are created for pooling / matrix algebra / activation / fileIO etc. The main program is file.cpp, which calls these functions, whenever required.
 
 The program is commented to facilitate readibility.
+
+---
+### Subtask-2

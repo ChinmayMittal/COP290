@@ -3,7 +3,7 @@
 #include <cstdlib> 
 #include <ctime> 
 #include <stdlib.h>
-#include<mkl.h>
+
 
 using namespace std ; 
 
@@ -20,15 +20,6 @@ void matGen( vector<vector<float>>&mat , float lrange = 0 , float rrange = 1){
 
 }
 
-// void init_matrix(float *a, int m, int n, float value = 1){
-//     for(int i = 0; i < m * n; i++){
-//         if(value == 1){
-//             a[i] = (float)(rand() % 100);
-//         }else{
-//             a[i] = 0;
-//         }
-//     }
-// }
 template <class T>
 void init_matrix(T *a, int m, int n, T value = 1){
     for(int i = 0; i < m * n; i++){

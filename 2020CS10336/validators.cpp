@@ -13,16 +13,7 @@ bool is_number(const string& s)
 }
 
 int string_to_int_validator( string s , string err ){
-    // cout << s.size() <<  " " << s[1] + '\0'<< endl;
-    // if(!is_number(s)){
-    //     throw err ;
-    // }
 
-    // int temp = stoi(s) ; 
-
-    // if( temp < 1 ) throw err ;
-
-    // return temp ; 
     int temp ; 
     try{
         temp = stoi(s) ; 
