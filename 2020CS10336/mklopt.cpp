@@ -1,11 +1,12 @@
 #include"mkl.h"
 #include"timing.h"
 #include"matarr.cpp"
+#include<utility>
 
 using namespace std ; 
 
 
-vector<vector<float>> mklOpt(vector<vector<float>>&mat, vector<vector<float>>&weights, vector<vector<float>>&bias){
+pair<vector<vector<float>> , double > mklOpt(vector<vector<float>>&mat, vector<vector<float>>&weights, vector<vector<float>>&bias){
     
      // Matrices
      double *A, *B, *C , *outputMatrix ;
@@ -23,5 +24,5 @@ vector<vector<float>> mklOpt(vector<vector<float>>&mat, vector<vector<float>>&we
     auto mkl_t2 = get_time();                     
     printTimeDuration("MATMUL MKL:" , mkl_t1 , mkl_t2 )  ; 
     vector<vector<float>> ans = array1DToMat(C,bias.size(),bias[0].size());
-    return ans ; 
+    return pair<vector<vector<float>> , double>(ans , getTimeDuration(mkl_t1 , mkl_t2) )  ; 
 }

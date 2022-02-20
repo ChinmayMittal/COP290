@@ -1,5 +1,6 @@
 #include<iostream>
 #include<string>
+#include<utility>
 #include"relu.h"
 #include"tanh.h"
 #include"sigmoid.h"
@@ -12,6 +13,7 @@
 #include"timing.h"
 #include"matGen.cpp"
 #include"optimization.h"
+
 
 using namespace std ; 
 using namespace std::chrono;
@@ -49,13 +51,15 @@ int main( int argc , const char * argv [] ){
                 // optimized implementation 
                 string optimization(argv[6]) ;
                 if(optimization == "mkl"){
-                    vector<vector<float>> ans =  mklOpt(mat,weights,bias) ; 
-                    write( ans , outputFileName) ; 
+                    pair<vector<vector<float>> , double > result =  mklOpt(mat,weights,bias) ; 
+                    cout << "HERE  " << result.second << "\n" ; 
+                    write( result.first , outputFileName) ; 
                 }else if( optimization == "openblas"){
 
                 }else if( optimization == "pthread"){
-                   vector<vector<float>> ans =  pthreadOpt(mat,weights,bias);
-                   write( ans , outputFileName ) ; 
+                   pair<vector<vector<float>> , double > result=  pthreadOpt(mat,weights,bias); // pair of ans matrix and time in seconds
+                   cout << "HERE  " << result.second << "\n" ; 
+                   write( result.first , outputFileName ) ; 
                 }else{
                     throw ( optimization + " is not supported use mkl|openblas|pthread") ; 
                 }

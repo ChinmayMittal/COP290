@@ -2,6 +2,7 @@
 #include<pthread.h>
 #include<iostream>
 #include<cmath>
+#include<utility>
 #include"timing.h"
 
 using namespace std ; 
@@ -26,7 +27,7 @@ void* rowMul( void* args ) {
     
 }
 
-vector<vector<float>> pthreadOpt(vector<vector<float>>&mat, vector<vector<float>>&weight, vector<vector<float>>&bias ){
+pair<vector<vector<float>> , double > pthreadOpt(vector<vector<float>>&mat, vector<vector<float>>&weight, vector<vector<float>>&bias ){
     
     a = vector<vector<float>>(mat) ; 
     b =   vector<vector<float>>(weight) ;
@@ -46,7 +47,7 @@ vector<vector<float>> pthreadOpt(vector<vector<float>>&mat, vector<vector<float>
         pthread_join(threads[i], NULL); 
     auto thread_t2 = get_time() ; 
     printTimeDuration("PTHREAD: " , thread_t1 , thread_t2 ) ; 
-    return c ; 
+    return pair<vector<vector<float>> , double> ( c , getTimeDuration(thread_t1 , thread_t2))  ; 
 }
 
 

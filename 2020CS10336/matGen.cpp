@@ -3,7 +3,7 @@
 #include <cstdlib> 
 #include <ctime> 
 #include <stdlib.h>
-#include<mkl.h>
+
 
 using namespace std ; 
 
