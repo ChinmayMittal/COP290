@@ -168,3 +168,5 @@ For other optimization routines additional command line arguments can be provide
     * To prevent a large number of threads from being computed , we restrict the maximum threads to 8 .
 
     * Thread $ i $ computes the results associated with all rows $ 1 \leq j = i + (8*k ) \leq n $, of the output matrix i.e. all rows differing by multiples of 8 where n is the number of rows in the resultant matrix and k is a whole number.
+
+![MAT MUL THREADED](./images/matmul.png?raw=true "Matrix Multiplication using threads")
