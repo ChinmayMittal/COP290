@@ -169,4 +169,7 @@ For other optimization routines additional command line arguments can be provide
 
     * Thread $ i $ computes the results associated with all rows $ 1 \leq j = i + (8*k ) \leq n $, of the output matrix i.e. all rows differing by multiples of 8 where n is the number of rows in the resultant matrix and k is a whole number.
 
-<img src="images/matmul.png" width="200">
+<p align="center">
+<img src="images/matmul.png" width="400"><br>
+Threaded matrix mulitplication
+</p>
