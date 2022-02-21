@@ -13,7 +13,7 @@
 int main(int argc, char const *argv[])
 {
     srand(time(0));
-    const string USAGE = "USAGE:\nrandomMat mult <nmats> <nrows> [ncols [maxVal]]\nOR\nrandomMat one <nrows> [ncols [outFile [maxVal]]]";
+    const string USAGE = "USAGE:\n./randomMat.out mult <nmats> <nrows> [ncols [maxVal]]\nOR\nrandomMat one <nrows> [ncols [outFile [maxVal]]]";
 
     if (argc < 3 || argc > 6)
     {

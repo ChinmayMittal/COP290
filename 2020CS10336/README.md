@@ -173,3 +173,29 @@ For other optimization routines additional command line arguments can be provide
 <img src="images/matmul.png" width="400"><br>
 Threaded matrix mulitplication
 </p>
+
+---
+
+### Generating the plots
+To compute latencies for all the implementations, a set of pre defined random matrices is needed. To aid this, we have the `randomMat.out` which works in 2 modes (one and multi) as follows:
+```
+./randomMat.out one <nrows> [ncols [outFile [maxVal]]]
+
+./randomMat.out mult <nmats> <nrows> [ncols [maxVal]]
+```
+For a given size, we need 3 random matrices A, B, C to perform A * B + C and compute the latency. Thus, we run
+```
+./randomMat.out mult 3 size
+```
+This will generate 3 matrices with the names mat*size*x*size*_0, mat*size*x*size*_1, mat*size*x*size*_2. Note that the matrices on which tests have been performed are included in the folder. 
+Now we run the following commands to generate latencies for these matrices:
+```
+./yourcode.out calclatency
+./openblas_mm.out calclatency
+```
+This will output a `.dat` file for each implementation which contains all the latency data. Note that matrix file names have been hardcoded inside the file so to calculate latency of sizes other than (10x10, 20x20, 50x50, 100x100, 200x200) the `latency_consts.h` file needs to be modified.
+Finally to visualize this data, run
+```
+gnuplot ./gen_plots.plt
+```
+This will output PNG and EPS files for each implementation to the `plots` directory.
