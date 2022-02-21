@@ -1,19 +1,27 @@
 reset
 
+# Directory prefixes for inputs and outputs
 DATA_PREFIX = "./"
 OUTPUT_PREFIX = "plots/"
 
+# Make the output directory if it doesn't exist
 system "mkdir -p " . OUTPUT_PREFIX
 
+# Input files
 NAIVE_DATA = DATA_PREFIX."naive.dat"
 MULTITHREADED_DATA = DATA_PREFIX."multithreaded.dat"
 OPENBLAS_DATA = DATA_PREFIX."openblas.dat"
 MKL_DATA = DATA_PREFIX."mkl.dat"
 
+# Set style of plot and other formatting
 set style data boxerrorbars
 set style fill solid 0.3
 set boxwidth 0.5
 unset key
+
+# For each implementation, set the titles and labels first
+# Then set the xrange so that whole plot is visible
+# Finally, plot in two formats, png and eps. Size is set to 1280 x 780.
 
 set title "Variation of latency of naive implementation with size of the matrix"
 set xlabel 'Size of matrix'

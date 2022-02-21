@@ -12,6 +12,10 @@
 #include "optimization.h"
 #include "timing.h"
 
+/* Runs the three implementation fixed number of times for each triplet of matrix files.
+ * Calculates the mean and sd of latency for each triplet and outputs them to files. These
+ * triplets correspond to different matrix sizes.
+ */
 void computeLatencies(std::vector<std::string> files, std::vector<std::string> labels)
 {
     std::ofstream naiveFile;
@@ -25,6 +29,10 @@ void computeLatencies(std::vector<std::string> files, std::vector<std::string> l
 
     for (size_t i = 0; i < files.size(); i += 3)
     {
+        /* For each triplet (mat, weights, bias), we do mat*weights + bias and the time taken
+         * is averaged over multiple runs.
+         */
+
         std::vector<std::vector<float>> mat = read(files[i]);
         std::vector<std::vector<float>> weights = read(files[i + 1]);
         std::vector<std::vector<float>> bias = read(files[i + 2]);
@@ -90,6 +98,9 @@ void computeLatencies(std::vector<std::string> files, std::vector<std::string> l
     }
 }
 
+/*
+ * Overloading function to use default files and labels if nothing is given
+ */
 void computeLatencies()
 {
     computeLatencies(DEFAULT_FILES, DEFAULT_LABELS);
