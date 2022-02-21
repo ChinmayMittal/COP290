@@ -199,3 +199,52 @@ Finally to visualize this data, run
 gnuplot ./gen_plots.plt
 ```
 This will output PNG and EPS files for each implementation to the `plots` directory.
+
+---
+
+### Results
+
+The results are included in the plots folder. We have included plots for 4 cases 
+
+1. Naive Implementation 
+
+<p align="center">
+<img src="plots/naive.png" width="400"><br>
+Naive matrix mulitplication
+</p>
+
+2. Threaded Implementation using pthreads
+
+<p align="center">
+<img src="plots/multithreaded.png" width="400"><br>
+Multithreaded matrix mulitplication
+</p>
+
+
+3. Intel MKL implementation 
+
+<p align="center">
+<img src="plots/mkl.png" width="400"><br>
+Intel MKL implementation 
+</p>
+
+4. Openblas implementation. 
+
+<p align="center">
+<img src="plots/openblas.png" width="400"><br>
+Openblas implementation 
+</p>
+
+Observations: 
+
+1. Efficiency of implementations: 
+
+>   INTEL MKL > OPENBLAS > PTHREADS > NAIVE 
+
+2. For each plot, we use random matrices of different dimensions. For a given dimension we generate a random matrix and test the optimization technique 500 times on the same matrix, we calculate the latencies and standard deviation using these timing values. 
+
+3. Since threading divides the matrix work among different threads, the timings are generally better by a constant factor (2-3) compared to the naive implementation. The timings increase with repects to the third order of the size of the matrix as expected by the algorithm implementation. But our method does not match library implementations given they utilize hardware resources much better, and not just simple parallelization.
+
+4. For smaller matrices there is not much difference in any implementation, it is for the larger matrices that the difference in timings shows up.
+
+5. Openblas shows abnormal behaviour with timings decreasing for certain matrix sizes.
