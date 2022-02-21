@@ -209,14 +209,14 @@ The results are included in the plots folder. We have included plots for 4 cases
 1. Naive Implementation 
 
 <p align="center">
-<img src="plots/naive.png" width="400"><br>
+<img src="plots/naive.png" width="600"><br>
 Naive matrix mulitplication
 </p>
 
 2. Threaded Implementation using pthreads
 
 <p align="center">
-<img src="plots/multithreaded.png" width="400"><br>
+<img src="plots/multithreaded.png" width="600"><br>
 Multithreaded matrix mulitplication
 </p>
 
@@ -224,14 +224,14 @@ Multithreaded matrix mulitplication
 3. Intel MKL implementation 
 
 <p align="center">
-<img src="plots/mkl.png" width="400"><br>
+<img src="plots/mkl.png" width="600"><br>
 Intel MKL implementation 
 </p>
 
 4. Openblas implementation. 
 
 <p align="center">
-<img src="plots/openblas.png" width="400"><br>
+<img src="plots/openblas.png" width="600"><br>
 Openblas implementation 
 </p>
 
