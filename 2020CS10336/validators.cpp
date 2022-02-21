@@ -1,37 +1,46 @@
-#include<bits/stdc++.h>
-#include<vector>
-#include<string>
-#include <fstream>
+#include <vector>
+#include <string>
 
-using namespace std ; 
+#include "validators.h"
 
-bool is_number(const string& s)
+using namespace std;
+
+bool is_number(const string &s)
 {
     string::const_iterator it = s.begin();
-    while (it != s.end() && isdigit(*it)) ++it;
+    while (it != s.end() && isdigit(*it))
+        ++it;
     return !s.empty() && it == s.end();
 }
 
-int string_to_int_validator( string s , string err ){
+int string_to_int_validator(string s, string err)
+{
 
-    int temp ; 
-    try{
-        temp = stoi(s) ; 
-    }catch(...){
-        throw err ; 
+    int temp;
+    try
+    {
+        temp = stoi(s);
     }
-    if(temp < 1 ) throw err  ; 
-    return temp ; 
-
+    catch (...)
+    {
+        throw err;
+    }
+    if (temp < 1)
+        throw err;
+    return temp;
 }
 
-float string_to_float_validator( string s , string err ) {
+float string_to_float_validator(string s, string err)
+{
 
-    float temp ; 
-    try{
-        temp = stof(s) ; 
-    }catch(...){
-        throw err ; 
+    float temp;
+    try
+    {
+        temp = stof(s);
     }
-    return temp ; 
+    catch (...)
+    {
+        throw err;
+    }
+    return temp;
 }

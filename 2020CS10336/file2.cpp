@@ -1,13 +1,13 @@
 #include <iostream>
 #include <string>
 #include <utility>
-#include "matrixio.cpp"
+#include <vector>
+
+#include "matrixio.h"
 #include "optimization.h"
-#include "timing.h"
 #include "latency_openblas.h";
 
 using namespace std;
-using namespace std::chrono;
 
 // different file and executable for openblas to avoid conficts between mkl and openblas
 int main(int argc, const char *argv[])

@@ -5,68 +5,77 @@
 
 CXX = g++
 
-COMPILER_FLAGS = -fopenmp -lmkl_intel_lp64 -lmkl_core -lmkl_gnu_thread -lpthread -lm -ldl
-MKL_LIB_DIRI = /opt/intel/oneapi/mkl/2022.0.2/lib/intel64
-MKL_INCLUDE_DIRI = /opt/intel/oneapi/mkl/2022.0.2/include
+MKL_LIB_DIR = /opt/intel/oneapi/mkl/2022.0.2/lib/intel64
+MKL_INCLUDE_DIR = /opt/intel/oneapi/mkl/2022.0.2/include
 
-CPPFLAGS = -g -Wall
-LDFLAGS = -g -Llibs/openblas/lib -Wl,-rpath,libs/openblas/lib
-LDLIBS = -lopenblas -lpthread
+OPENBLAS_LIB_DIR = /opt/OpenBLAS/lib
+OPENBLAS_INCLUDE_DIR = /opt/OpenBLAS/include
 
-objects_test_openblas = openblas_mm.o
-TEST_OPENBLAS = openblas_mm.out
+CPPFLAGS = -g -Wall -I$(OPENBLAS_INCLUDE_DIR) -I$(MKL_INCLUDE_DIR)
+LDFLAGS = -g -L$(OPENBLAS_LIB_DIR) -L$(MKL_LIB_DIR) -Wl,-rpath,$(OPENBLAS_LIB_DIR) -Wl,-rpath,$(MKL_LIB_DIR)
+
+OPENBLAS_LIB = -lopenblas -lpthread
+MKL_LIB = -fopenmp -lmkl_intel_lp64 -lmkl_core -lmkl_gnu_thread -lpthread -lm -ldl
 
 RANDOM_MAT = randomMat.out
-objects_random_mat = randomMain.o validators.o
+objects_random_mat = genRandom.o matrixio.o randomMain.o validators.o
 
-all: yourcode.out openblas_mm.out $(RANDOM_MAT)
+MAIN_EXEC = yourcode.out
+objects_main_exec = file.o latency_others.o matarr.o matrixAlgebra.o matrixio.o mklopt.o pooling.o pthreadopt.o relu.o sigmoid.o softmax.o tanh.o timing.o validators.o vectorio.o
+
+OPENBLAS_EXEC = openblas_mm.out
+objects_openblas_exec =  file2.o latency_openblas.o matarr.o matrixio.o openblasopt.o timing.o validators.o
+
+all: $(RANDOM_MAT) $(MAIN_EXEC) $(OPENBLAS_EXEC) 
 
 $(RANDOM_MAT): $(objects_random_mat)
-	$(CXX) $(LDFLAGS) -o $(RANDOM_MAT) $(objects_random_mat) $(LDLIBS)
+	$(CXX) $(LDFLAGS) -o $(RANDOM_MAT) $(objects_random_mat)
 
-yourcode.out: file.o relu.o tanh.o sigmoid.o softmax.o validators.o pthreadopt.o mklopt.o timing.o latency_others.o
-	g++ -Wl,-rpath,$(MKL_LIB_DIRI) -L$(MKL_LIB_DIRI) -I$(MKL_INCLUDE_DIRI) file.o relu.o tanh.o sigmoid.o mklopt.o softmax.o pthreadopt.o timing.o validators.o latency_others.o -o yourcode.out $(COMPILER_FLAGS)
+$(MAIN_EXEC): $(objects_main_exec)
+	$(CXX) $(LDFLAGS) -o $(MAIN_EXEC) $(objects_main_exec) $(MKL_LIB)
 
-openblas_mm.out: openblas_mm.o file2.o timing.o latency_openblas.o
-	g++ $(LDFLAGS) -o $(TEST_OPENBLAS) $(objects_test_openblas) file2.o validators.o timing.o latency_openblas.o $(LDLIBS)
+$(OPENBLAS_EXEC): $(objects_openblas_exec)
+	$(CXX) $(LDFLAGS) -o $(OPENBLAS_EXEC) $(objects_openblas_exec) $(OPENBLAS_LIB)
 
-relu.o: relu.cpp relu.h
-	g++ -c relu.cpp
+file.o: relu.h tanh.h sigmoid.h softmax.h pooling.h matrixio.h vectorio.h matrixAlgebra.h optimization.h validators.h timing.h latency_others.h
 
-tanh.o: tanh.h tanh.cpp
-	g++ -c tanh.cpp
+file2.o: matrixio.h optimization.h latency_openblas.h
 
-sigmoid.o: sigmoid.cpp sigmoid.h
-	g++ -c sigmoid.cpp 
-
-softmax.o: softmax.cpp softmax.h
-	g++ -c softmax.cpp 
-
-validators.o: validators.cpp validator.h
-	g++ -c validators.cpp
-
-pthreadopt.o: pthreadopt.cpp
-	g++ -c pthreadopt.cpp
-
-mklopt.o: mklopt.cpp
-	g++ -c -L$(MKL_LIB_DIRI) -I$(MKL_INCLUDE_DIRI) mklopt.cpp $(COMPILER_FLAGS)
-
-timing.o: timing.cpp
-	g++ -c timing.cpp
-
-file.o: file.cpp matrixio.cpp vectorio.cpp pooling.cpp matrixAlgebra.cpp
-	g++ -c  file.cpp 
-
-file2.o: file2.cpp matrixio.cpp
-	g++ -c file2.cpp
-
-openblas_mm.o: openblasopt.cpp matarr.cpp
-	g++ -c openblasopt.cpp -o openblas_mm.o $(CPPFLAGS)
+genRandom.o: genRandom.h
 
 latency_openblas.o: latency_openblas.h latency_consts.h matrixio.h optimization.h
-latency_others.o: latency_others.h latency_consts.h matrixio.h optimization.h matrixAlgebra.h
 
-randomMain.o: genRandom.cpp matrixio.cpp
+latency_others.o: latency_others.h latency_consts.h matrixAlgebra.h matrixio.h optimization.h timing.h
+
+matarr.o: matarr.h
+
+matrixAlgebra.o: matrixAlgebra.h
+
+matrixio.o: matrixio.h validators.h
+
+mklopt.o: optimization.h matarr.h timing.h
+
+openblasopt.o: optimization.h matarr.h timing.h
+
+pooling.o: pooling.h
+
+pthreadopt.o: optimization.h timing.h
+
+randomMain.o: genRandom.h matrixio.h
+
+relu.o: relu.h
+
+sigmoid.o: sigmoid.h
+
+softmax.o: softmax.h
+
+tanh.o: tanh.h
+
+timing.o: timing.h
+
+validators.o: validators.h
+
+vectorio.o: vectorio.h validators.h
 
 clean:
-	rm *.o yourcode.out openblas_mm.out $(RANDOM_MAT)
+	rm *.o $(RANDOM_MAT) $(MAIN_EXEC) $(OPENBLAS_EXEC)

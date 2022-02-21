@@ -1,17 +1,22 @@
-#include<iostream>
-#include<vector>
-#include<cmath>
-using namespace std ; 
+#include <vector>
+#include <cmath>
 
-// sigmoid activation for floats and float matrices 
+#include "sigmoid.h"
 
-float sigmoid( float x ) {
+using namespace std;
 
-    return 1 / ( 1 + exp(-x)) ; 
+// sigmoid activation for floats and float matrices
+
+float sigmoid(float x)
+{
+
+    return 1 / (1 + exp(-x));
 }
 
-void sigmoid( vector<float>&arr){
-    for( auto &ele : arr ) {
-        ele = sigmoid(ele) ; 
+void sigmoid(vector<float> &arr)
+{
+    for (auto &ele : arr)
+    {
+        ele = sigmoid(ele);
     }
 }

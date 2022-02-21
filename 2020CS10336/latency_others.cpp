@@ -4,10 +4,12 @@
 #include <fstream>
 #include <iostream>
 
+#include "latency_others.h"
+
+#include "latency_consts.h"
+#include "matrixAlgebra.h"
 #include "matrixio.h"
 #include "optimization.h"
-#include "matrixAlgebra.h"
-#include "latency_consts.h"
 #include "timing.h"
 
 void computeLatencies(std::vector<std::string> files, std::vector<std::string> labels)

@@ -1,6 +1,7 @@
-#include<vector>
-using namespace std ; 
+#include <vector>
 
-// header files for ReLU activation 
+using namespace std;
 
-void ReLU( vector<vector<float>>&mat) ; 
+// header files for ReLU activation
+
+void ReLU(vector<vector<float>> &mat);

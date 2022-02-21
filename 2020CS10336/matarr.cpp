@@ -1,7 +1,9 @@
 #include <vector>
 
+#include "matarr.h"
+
 /*
-    Helper functions for data format conversion of matrices 
+    Helper functions for data format conversion of matrices
     from vector of vectors to 2-D arrays stored contiguosly in memory ( row major order) or vice-versa
 */
 void matToArray1D(std::vector<std::vector<float>> &mat, double arr[])

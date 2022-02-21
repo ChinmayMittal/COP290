@@ -3,8 +3,8 @@
 #include <ctime>
 #include <cstdlib>
 
-#include "genRandom.cpp"
-#include "matrixio.cpp"
+#include "genRandom.h"
+#include "matrixio.h"
 
 int main(int argc, char const *argv[])
 {

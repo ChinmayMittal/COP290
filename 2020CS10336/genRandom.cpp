@@ -1,7 +1,9 @@
 #include <vector>
 #include <cstdlib>
 
-std::vector<std::vector<float>> genRandomMatrix(int rows, int cols, float max = 100)
+#include "genRandom.h"
+
+std::vector<std::vector<float>> genRandomMatrix(int rows, int cols, float max)
 {
     /*
         generates random matrices to compute latency for comparison purposes

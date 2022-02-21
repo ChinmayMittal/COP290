@@ -41,7 +41,7 @@ sigmoid.o: sigmoid.h
 
 softmax.o: softmax.h
 
-validators.o: validator.h
+validators.o: validators.h
 
 file.o: matrixio.cpp vectorio.cpp pooling.cpp matarr.cpp matrixAlgebra.cpp
 

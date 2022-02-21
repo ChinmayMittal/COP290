@@ -4,9 +4,11 @@
 #include <fstream>
 #include <iostream>
 
+#include "latency_openblas.h"
+
+#include "latency_consts.h"
 #include "matrixio.h"
 #include "optimization.h"
-#include "latency_consts.h"
 
 void computeLatencies(std::vector<std::string> files, std::vector<std::string> labels)
 {

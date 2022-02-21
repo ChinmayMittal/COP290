@@ -1,65 +1,73 @@
-#include<iostream>
-#include<vector>
+#include <vector>
 
-using namespace std ; 
+#include "pooling.h"
 
-// aggregator for pooling 
-float accumulator( vector<float>&arr , string typeOfpooling ) {
+using namespace std;
 
-    float ans = 0 ; 
+// aggregator for pooling
+float accumulator(vector<float> &arr, string typeOfpooling)
+{
 
-    if( typeOfpooling == "average" ){
+    float ans = 0;
 
-        for( auto ele : arr ) {
-            ans += ele ; 
+    if (typeOfpooling == "average")
+    {
+
+        for (auto ele : arr)
+        {
+            ans += ele;
         }
 
-        ans = ans / arr.size() ; 
+        ans = ans / arr.size();
+    }
+    else if (typeOfpooling == "max")
+    {
 
-    }else if( typeOfpooling == "max"){
+        ans = arr[0];
 
-        ans = arr[0] ; 
-
-        for( auto ele : arr  ) {
-            ans = max( ans ,ele ) ; 
-        } 
-
+        for (auto ele : arr)
+        {
+            ans = max(ans, ele);
+        }
     }
 
-    return ans ; 
+    return ans;
 }
 
+vector<vector<float>> pooling(vector<vector<float>> &mat, int stride, string poolingType, int filterSize)
+{
 
-vector<vector<float>> pooling( vector<vector<float>>&mat , int stride ,  string poolingType , int filterSize = 2 ) {
+    filterSize = stride; // assumption in this question
 
-    filterSize = stride ; // assumption in this question 
-    
-    int rows = mat.size() ; 
-    int columns = mat[0].size() ; 
+    int rows = mat.size();
+    int columns = mat[0].size();
 
-    // computes the dimensions of the pooled matrix 
-    int ansColumns = ( columns - filterSize ) / stride  + 1 , ansRows = ( rows - filterSize ) / stride + 1 ; 
+    // computes the dimensions of the pooled matrix
+    int ansColumns = (columns - filterSize) / stride + 1, ansRows = (rows - filterSize) / stride + 1;
 
-    vector<vector<float>> ans( ansRows, vector<float>( ansColumns , 0.0f) ) ;
+    vector<vector<float>> ans(ansRows, vector<float>(ansColumns, 0.0f));
 
-    for( int filterRowEdge = 0 ; filterRowEdge <= rows-filterSize ; filterRowEdge += stride ){
-        for( int filterColumnEdge = 0 ; filterColumnEdge <= columns -filterSize ; filterColumnEdge += stride ) {
-            // these two for loops iterate thorugh all positions of the top left edge of the filter 
-            vector<float>elementsInFilterShadow  ; 
+    for (int filterRowEdge = 0; filterRowEdge <= rows - filterSize; filterRowEdge += stride)
+    {
+        for (int filterColumnEdge = 0; filterColumnEdge <= columns - filterSize; filterColumnEdge += stride)
+        {
+            // these two for loops iterate thorugh all positions of the top left edge of the filter
+            vector<float> elementsInFilterShadow;
 
-            for( int rowStart = filterRowEdge ; rowStart < filterRowEdge + filterSize ; rowStart ++  ){
-                for( int  colStart = filterColumnEdge ; colStart < filterColumnEdge  + filterSize; colStart ++ ) {
-                    // these two iterate through all the elements in the filter shadow 
-                    elementsInFilterShadow.push_back( mat[rowStart][colStart]) ; 
+            for (int rowStart = filterRowEdge; rowStart < filterRowEdge + filterSize; rowStart++)
+            {
+                for (int colStart = filterColumnEdge; colStart < filterColumnEdge + filterSize; colStart++)
+                {
+                    // these two iterate through all the elements in the filter shadow
+                    elementsInFilterShadow.push_back(mat[rowStart][colStart]);
                 }
             }
 
-            float filterAns = accumulator( elementsInFilterShadow , poolingType ) ; 
+            float filterAns = accumulator(elementsInFilterShadow, poolingType);
 
-            ans[filterRowEdge/stride][filterColumnEdge/stride] = filterAns ; 
+            ans[filterRowEdge / stride][filterColumnEdge / stride] = filterAns;
         }
-    }   
+    }
 
-    return ans ; 
-
+    return ans;
 }

@@ -1,18 +1,23 @@
 #include <iostream>
 #include <string>
 #include <utility>
+#include <vector>
+
 #include "relu.h"
 #include "tanh.h"
 #include "sigmoid.h"
-#include "matrixio.cpp"
-#include "vectorio.cpp"
 #include "softmax.h"
-#include "pooling.cpp"
-#include "matrixAlgebra.cpp"
-#include "validator.h"
-#include "timing.h"
-#include "matGen.cpp"
+#include "pooling.h"
+
+#include "matrixio.h"
+#include "vectorio.h"
+
+#include "matrixAlgebra.h"
 #include "optimization.h"
+
+#include "validators.h"
+#include "timing.h"
+
 #include "latency_others.h"
 
 using namespace std;
@@ -35,7 +40,7 @@ int main(int argc, const char *argv[])
             }
 
             string inputMatFileName(argv[2]), weightMatFileName(argv[3]), biasMatFileName(argv[4]), outputFileName(argv[5]);
-            
+
             // get input, weight and bias matrices
             vector<vector<float>> mat = read(inputMatFileName), weights = read(weightMatFileName), bias = read(biasMatFileName);
             if (argc == 6)
@@ -60,7 +65,7 @@ int main(int argc, const char *argv[])
                 else if (optimization == "openblas")
                 {
                     // this is handled in a seperate executable to avoid conficts between mkl and openblas
-                    throw ( "openblas code is handled in a seperate executable") ; 
+                    throw("openblas code is handled in a seperate executable");
                 }
                 else if (optimization == "pthread")
                 {

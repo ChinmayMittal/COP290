@@ -1,5 +1,5 @@
-//  header file to include softmax funcitonality 
+//  header file to include softmax funcitonality
 
-#include<vector>
+#include <vector>
 
-void softmax( std::vector<float>&arr ) ; 
+void softmax(std::vector<float> &arr);
