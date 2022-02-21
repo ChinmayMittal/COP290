@@ -248,3 +248,36 @@ Observations:
 4. For smaller matrices there is not much difference in any implementation, it is for the larger matrices that the difference in timings shows up.
 
 5. Openblas shows abnormal behaviour with timings decreasing for certain matrix sizes.
+
+--- 
+
+Resource utilization of our threaded implementation 
+
+We analyze how our threaded implementation utilizes resources. We run both implementations, multi-threaded and naive on a large matrix of 1000*1000 and see CPU utilization during the process. The results are as follows: 
+
+1. Naive implementation 
+
+<p align="center">
+<img src="images/naive_1.png" width="600"><br>
+CPU utilization during naive matrix implementation 
+<p align="center">
+<img src="images/naive_2.png" width="600"><br>
+CPU utilization during naive matrix implementation 
+<p align="center">
+<img src="images/naive_3.png" width="600"><br>
+CPU utilization during naive matrix implementation 
+
+2. Multi-Threaded implementation using pthreads
+
+<p align="center">
+<img src="images/pthread_1.png" width="600"><br>
+Custom multi-threaded implementation
+<p align="center">
+<img src="images/pthread_2.png" width="600"><br>
+Custom multi-threaded implementation
+<p align="center">
+<img src="images/pthread_3.png" width="600"><br>
+Custom multi-threaded implementation
+</p>
+
+> These result snapshots were taken at different times of the process. Clearly, our threaded implementation used CPU cores much better compared to the naive implemenation which only uses one core. Our threads achieve better use of hardware resources running computations on all cores parallely.
