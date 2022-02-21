@@ -241,7 +241,7 @@ Observations:
 
 >   INTEL MKL > OPENBLAS > PTHREADS > NAIVE 
 
-2. For each plot, we use random matrices of different dimensions. For a given dimension we generate a random matrix and test the optimization technique 500 times on the same matrix, we calculate the latencies and standard deviation using these timing values. 
+2. For each plot, we use random matrices of different dimensions. For a given dimension we generate a random matrix and test the optimization technique 500 times on the same matrix, we calculate the mean latencies and standard deviations using these timing values. 
 
 3. Since threading divides the matrix work among different threads, the timings are generally better by a constant factor (2-3) compared to the naive implementation. The timings increase with repects to the third order of the size of the matrix as expected by the algorithm implementation. But our method does not match library implementations given they utilize hardware resources much better, and not just simple parallelization.
 
