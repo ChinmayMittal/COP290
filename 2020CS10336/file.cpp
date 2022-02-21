@@ -26,6 +26,13 @@ using namespace std::chrono;
 int main(int argc, const char *argv[])
 {
 
+    if (argc == 1)
+    {
+        cout << "Please specify a task to get information on how to run the task." << '\n'
+             << "./yourcode.out <fullyconnected|activation|pooling|probability>" << '\n';
+        return 0;
+    }
+
     string task(argv[1]); // stores the name of the function to be called ( fullyconnected/activation/pooling/probability)
 
     try

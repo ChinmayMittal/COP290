@@ -12,6 +12,12 @@ using namespace std;
 // different file and executable for openblas to avoid conficts between mkl and openblas
 int main(int argc, const char *argv[])
 {
+    if (argc == 1)
+    {
+        cout << "This executable only supports fullyconnected task. Use it as: " << '\n'
+             << "./openblas_mm.out fullyconnected (input_matrix_filename) (weight_matrix_filename) (bias_matrix_filename) (output_matrix_filename) openblas" << '\n';
+        return 0;
+    }
 
     string task(argv[1]); // only fullyconnected for openblas
     try
