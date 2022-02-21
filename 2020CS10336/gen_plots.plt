@@ -11,6 +11,7 @@ OPENBLAS_DATA = DATA_PREFIX."openblas.dat"
 MKL_DATA = DATA_PREFIX."mkl.dat"
 
 set style data boxerrorbars
+set style fill solid 0.3
 set boxwidth 0.5
 unset key
 
