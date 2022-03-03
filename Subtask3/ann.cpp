@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include"algorithm"
 
 #include "optimization.h"
 
@@ -13,33 +14,24 @@
 #include"relu.h"
 #include"softmax.h"
 
-using namespace std ; 
+#include"predict_t.h"
+#include"predHelper.h"
 
-int main ( int argc, const char *argv[] ) {
+using namespace std ;
+
+
+
+bool predictionComparator( pred_t pred1 , pred_t pred2 ) {
+
+    return pred1.prob > pred2.prob ;  
+}
+int main( int argc, const char *argv[] ) {
  
-    string filename = "mfcc_features/e4be0cf6_nohash_3.txt" ; 
+    string filename = "mfcc_features/c9b5ff26_nohash_4.txt" ; 
     vector<vector<float>>inputFeatures = vectorToMatrix( readVectorInOneLine(filename)  , 1 , 250  , 'R')  ; 
     vector<vector<float>>weights1 = vectorToMatrix ( IP1_WT  , 250 , 144 , 'R') , weights2 = vectorToMatrix (  IP2_WT, 144 , 144 , 'R' ) , weights3 = vectorToMatrix (IP3_WT ,144 , 144 , 'R'), weights4 = vectorToMatrix(IP4_WT  , 144 , 12 , 'R'), bias1 = vectorToMatrix ( IP1_BIAS , 1 , 144 , 'R' ) , bias2 = vectorToMatrix(IP2_BIAS , 1 , 144 , 'R'), bias3 = vectorToMatrix (  IP3_BIAS , 1 , 144 , 'R' )  , bias4 = vectorToMatrix ( IP4_BIAS , 1 , 12 , 'R' )  , out1 , out2 , out3 , ans ; 
 
-    cout << inputFeatures.size() << " " << inputFeatures[0].size() << "\n" ; 
-    cout << weights1.size() << " " << weights1[0].size() << "\n" ; 
-    cout << bias1.size() << " " << bias1[0].size() << "\n" ;
-
-    // naive 
-    // out1 = mul( inputFeatures , weights1 ) ;  
-    // out1 = add( out1, bias1) ; 
-    // ReLU(out1) ; 
-    // out2 = mul( out1 , weights2 ) ;  
-    // out2 = add( out2, bias2) ; 
-    // ReLU(out2) ; 
-    // out3 = mul( out2 , weights3 ) ;  
-    // out3 = add( out3, bias3) ; 
-    // ReLU(out3) ; 
-    // ans = mul( out3 , weights4 ) ;  
-    // ans = add( ans, bias4) ; 
-    // softmax( ans[0]) ;
-
-    // mkl 
+    // mkl implemenentation of NN 
     out1 = mklOpt(  inputFeatures , weights1 , bias1 ).first; 
     ReLU( out1 ) ; 
     out2 = mklOpt( out1 , weights2 , bias2 ).first ; 
@@ -49,7 +41,18 @@ int main ( int argc, const char *argv[] ) {
     ans = mklOpt ( out3, weights4 , bias4 ).first ;  
     softmax( ans[0]) ; 
      
-    for( int i = 0 ; i < 12 ; i ++ ) cout << ans[0][i] << "\n" ; 
+    vector<pred_t> ansArray ; 
+    for( int i = 0 ; i < 12 ; i ++ ){ 
+
+        ansArray.push_back({
+            i+1 , 
+            ans[0][i]
+         }
+        ) ; 
+    }  
+
+    sort( ansArray.begin() , ansArray.end() , predictionComparator ) ;
+    for( auto ele : ansArray ) cout << ele.label << " " << ele.prob << " " << numToLabel[ele.label] << "\n" ;  
  
     return 0 ; 
 }

@@ -33,7 +33,7 @@ $(MAIN_EXEC): $(objects_main_exec)
 $(NN_exec): $(objects_NN_exec)
 	$(CXX) $(LDFLAGS) -o $(NN_exec) $(objects_NN_exec) $(MKL_LIB)
 
-ann.o: optimization.h vectorio.h relu.h softmax.h matarr.h
+ann.o: optimization.h vectorio.h relu.h softmax.h matarr.h dnn_weights.h predHelper.h predict_t.h
 
 file.o: relu.h tanh.h sigmoid.h softmax.h pooling.h matrixio.h vectorio.h matrixAlgebra.h optimization.h validators.h timing.h latency_others.h
 
