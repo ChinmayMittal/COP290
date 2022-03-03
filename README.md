@@ -170,7 +170,7 @@ For other optimization routines additional command line arguments can be provide
     * Thread $ i $ computes the results associated with all rows $ 1 \leq j = i + (8*k ) \leq n $, of the output matrix i.e. all rows differing by multiples of 8 where n is the number of rows in the resultant matrix and k is a whole number.
 
 <p align="center">
-<img src="images/matmul.png" width="400"><br>
+<img src="Subtask2/images/matmul.png" width="400"><br>
 Threaded matrix mulitplication
 </p>
 
@@ -209,14 +209,14 @@ The results are included in the plots folder. We have included plots for 4 cases
 1. Naive Implementation 
 
 <p align="center">
-<img src="plots/naive.png" width="600"><br>
+<img src="Subtask2/plots/naive.png" width="600"><br>
 Naive matrix mulitplication
 </p>
 
 2. Threaded Implementation using pthreads
 
 <p align="center">
-<img src="plots/multithreaded.png" width="600"><br>
+<img src="Subtask2/plots/multithreaded.png" width="600"><br>
 Multithreaded matrix mulitplication
 </p>
 
@@ -224,14 +224,14 @@ Multithreaded matrix mulitplication
 3. Intel MKL implementation 
 
 <p align="center">
-<img src="plots/mkl.png" width="600"><br>
+<img src="Subtask2/plots/mkl.png" width="600"><br>
 Intel MKL implementation 
 </p>
 
 4. Openblas implementation. 
 
 <p align="center">
-<img src="plots/openblas.png" width="600"><br>
+<img src="Subtask2/plots/openblas.png" width="600"><br>
 Openblas implementation 
 </p>
 
@@ -258,25 +258,25 @@ We analyze how our threaded implementation utilizes resources. We run both imple
 1. Naive implementation 
 
 <p align="center">
-<img src="images/naive_1.png" width="600"><br>
+<img src="Subtask2/images/naive_1.png" width="600"><br>
 CPU utilization during naive matrix implementation 
 <p align="center">
-<img src="images/naive_2.png" width="600"><br>
+<img src="Subtask2/images/naive_2.png" width="600"><br>
 CPU utilization during naive matrix implementation 
 <p align="center">
-<img src="images/naive_3.png" width="600"><br>
+<img src="Subtask2/images/naive_3.png" width="600"><br>
 CPU utilization during naive matrix implementation 
 
 2. Multi-Threaded implementation using pthreads
 
 <p align="center">
-<img src="images/pthread_1.png" width="600"><br>
+<img src="Subtask2/images/pthread_1.png" width="600"><br>
 Custom multi-threaded implementation
 <p align="center">
-<img src="images/pthread_2.png" width="600"><br>
+<img src="Subtask2/images/pthread_2.png" width="600"><br>
 Custom multi-threaded implementation
 <p align="center">
-<img src="images/pthread_3.png" width="600"><br>
+<img src="Subtask2/images/pthread_3.png" width="600"><br>
 Custom multi-threaded implementation
 </p>
 
