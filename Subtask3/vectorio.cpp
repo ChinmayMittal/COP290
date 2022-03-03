@@ -1,7 +1,8 @@
 #include <vector>
 #include <string>
 #include <fstream>
-
+#include <sstream>
+#include<iostream>
 #include "vectorio.h"
 
 #include "validators.h"
@@ -45,6 +46,46 @@ vector<float> readVector(string inputFileName)
     }
 
     return ans;
+}
+
+vector<float> readVectorInOneLine( string inputFileName ) {
+
+    fstream myFile;
+    vector<float> ans; // stores the input vector 
+
+    myFile.open(inputFileName, ios::in);
+
+    if (myFile.is_open())
+    {
+
+        string line;
+        while (getline(myFile, line))
+        {
+            
+            stringstream buffer(line);
+            string token;
+            vector<string> tokens; // all tokens of the current line will be stored here
+            while (getline(buffer, token, ' '))
+            { // string tokenizer which splits the line (stored in a buffer ) about the empty space
+                tokens.push_back(token);
+            }
+
+            for( auto token : tokens ){
+                ans.push_back(string_to_float_validator( token , "float value expected in " + inputFileName)) ; 
+            } 
+
+
+        }
+
+        myFile.close();
+    }
+    else
+    {
+        throw(inputFileName + " does not exist ");
+    }
+
+    return ans;
+
 }
 
 void writeVector(string outputFileName, vector<float> &arr)

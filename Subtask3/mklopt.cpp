@@ -24,7 +24,7 @@ pair<vector<vector<float>>, double> mklOpt(vector<vector<float>> &mat, vector<ve
         B = (double *)mkl_malloc(weights.size() * weights[0].size() * sizeof(double), 64);
         C = (double *)mkl_malloc(bias.size() * bias[0].size() * sizeof(double), 64);
         matToArray1D(mat, A);
-        matToArray1D(weights, B), matToArray1D(weights, C);
+        matToArray1D(weights, B), matToArray1D(bias, C);
         // Scale factors
         double alpha, beta;
         alpha = 1.0;
