@@ -1,3 +1,4 @@
+// data and function definitions for the library 
 typedef struct
 {
     int label;

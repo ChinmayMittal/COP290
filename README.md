@@ -281,3 +281,54 @@ Custom multi-threaded implementation
 </p>
 
 > These result snapshots were taken at different times of the process. Clearly, our threaded implementation used CPU cores much better compared to the naive implemenation which only uses one core. Our threads achieve better use of hardware resources running computations on all cores parallely.
+
+### Subtask-3 ( Hierarchical code design, creating library and API )
+
+--- 
+
+***Objective*** : Implement a deep neural network (DNN) inference for classifying across 12 audio keywords (silence, unknown, yes, no, up, down, left, right, on, off, stop, go). 
+
+We use INTEL MKL, which is the fastest implementation from Subtask2 for fullyconnected layers and our own softmax implementation for the prediction layer
+
+### How to run the program 
+ ---
+
+One needs to set ```MKL_BLAS_PATH```, the environment variable which specifies the path to intel mkl library
+
+```bash
+export MKL_BLAS_PATH=/opt
+```
+
+This environment variable will be used in the Makefile to link the math kernel library 
+
+```bash
+MKL_LIB_DIR = $(MKL_BLAS_PATH)/intel/oneapi/mkl/2022.0.2/lib/intel64
+MKL_INCLUDE_DIR = $(MKL_BLAS_PATH)/intel/oneapi/mkl/2022.0.2/include
+```
+
+Type make to create the shared object file  (```libaudio.so```) and the main executable (```yourcode.out```) to run the program which uses the library object file 
+
+To run the program use the following command 
+
+./yourcode.out [input_feature_file] [output_prediction_file]
+
+Eg
+```bash
+./yourcode.out mfcc_features/695c2127_nohash_0.txt out.txt
+```
+
+The output will be appended at the end of the text file specified as follows 
+
+```txt
+mfcc_features/695c2127_nohash_0.txt on _unknown_ off 0.998223 0.00142287 0.000338539 
+
+```
+
+### Error Handling 
+---
+
+1. In case the input file does not exist the program terminates gracefully and an error message is shown on the console 
+
+2. In case the output file cannot open an error message is produced
+
+3. In case of invalid command line arguments an error message is produced

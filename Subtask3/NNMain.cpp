@@ -7,6 +7,7 @@
 #include "predHelper.h"
 #include "vectorio.h"
 
+// sample usage of program 
 const std::string USAGE = "USAGE: ./yourcode.out mfcc_file_name outputfile";
 
 void writeToFile(std::string inpFileName, std::string outFileName, pred_t *results)
@@ -16,6 +17,7 @@ void writeToFile(std::string inpFileName, std::string outFileName, pred_t *resul
 
     if (!outFile.is_open())
     {
+        // error handling for file io errors 
         throw std::invalid_argument("The file " + outFileName + " can't be created/opened.");
     }
 
@@ -30,6 +32,7 @@ void writeToFile(std::string inpFileName, std::string outFileName, pred_t *resul
     {
         outFile << results[i].prob << " ";
     }
+
     outFile << std::endl;
     outFile.close();
 }
@@ -38,6 +41,7 @@ int main(int argc, const char *argv[])
 {
     if (argc != 3)
     {
+        // error handling for unexpected number of arguments
         std::cout << "ERROR: PROGRAM TERMINATING....\n" ; 
         std::cout << USAGE << std::endl;
         return 0;
@@ -48,7 +52,9 @@ int main(int argc, const char *argv[])
 
     pred_t results[12];
     try{
+        // call to audio library created 
         libaudioAPI(argv[1], results);
+        // append in text file 
         writeToFile(featuresFile, outputFile, results);
     }catch (string exp)
     {
@@ -58,6 +64,7 @@ int main(int argc, const char *argv[])
     }
     catch (char const *exp)
     {
+        // ERROR HANDLING
         cout << "ERROR:  PROGRAM TERMINATING....\n";
         cout << exp << "\n";
         
