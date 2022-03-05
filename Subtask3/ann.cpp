@@ -14,20 +14,19 @@
 #include"relu.h"
 #include"softmax.h"
 
-#include"predict_t.h"
+#include"interfaceNN.h"
 #include"predHelper.h"
 
 using namespace std ;
-
-
 
 bool predictionComparator( pred_t pred1 , pred_t pred2 ) {
 
     return pred1.prob > pred2.prob ;  
 }
-int main( int argc, const char *argv[] ) {
- 
-    string filename = "mfcc_features/c9b5ff26_nohash_4.txt" ; 
+
+void libaudioAPI(const char *audiofeatures, pred_t *pred){
+    
+    string filename( audiofeatures)  ; 
     vector<vector<float>>inputFeatures = vectorToMatrix( readVectorInOneLine(filename)  , 1 , 250  , 'R')  ; 
     vector<vector<float>>weights1 = vectorToMatrix ( IP1_WT  , 250 , 144 , 'R') , weights2 = vectorToMatrix (  IP2_WT, 144 , 144 , 'R' ) , weights3 = vectorToMatrix (IP3_WT ,144 , 144 , 'R'), weights4 = vectorToMatrix(IP4_WT  , 144 , 12 , 'R'), bias1 = vectorToMatrix ( IP1_BIAS , 1 , 144 , 'R' ) , bias2 = vectorToMatrix(IP2_BIAS , 1 , 144 , 'R'), bias3 = vectorToMatrix (  IP3_BIAS , 1 , 144 , 'R' )  , bias4 = vectorToMatrix ( IP4_BIAS , 1 , 12 , 'R' )  , out1 , out2 , out3 , ans ; 
 
@@ -41,18 +40,22 @@ int main( int argc, const char *argv[] ) {
     ans = mklOpt ( out3, weights4 , bias4 ).first ;  
     softmax( ans[0]) ; 
      
-    vector<pred_t> ansArray ; 
     for( int i = 0 ; i < 12 ; i ++ ){ 
-
-        ansArray.push_back({
-            i+1 , 
-            ans[0][i]
-         }
-        ) ; 
+        pred[i] = { i+1, ans[0][i] } ;
     }  
 
-    sort( ansArray.begin() , ansArray.end() , predictionComparator ) ;
-    for( auto ele : ansArray ) cout << ele.label << " " << ele.prob << " " << numToLabel[ele.label] << "\n" ;  
- 
-    return 0 ; 
+    sort( pred , pred + 12 , predictionComparator ) ; 
+    // for( int i = 0 ; i < 12 ; i ++ )  cout << pred[i].label << " " << pred[i].prob << " " << numToLabel[pred[i].label] << "\n" ;  
+
 }
+
+
+// int main( int argc, const char *argv[] ) {
+ 
+//     const char* a = "mfcc_features/b2ae3928_nohash_1.txt" ; 
+//     pred_t predictions [12] ; 
+//     libaudioAPI(a, predictions ) ; 
+ 
+//     return 0 ; 
+// }
+
