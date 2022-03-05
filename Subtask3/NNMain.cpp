@@ -4,6 +4,7 @@
 
 #include "interfaceNN.h"
 #include "matarr.h"
+#include "predHelper.h"
 #include "vectorio.h"
 
 const std::string USAGE = "USAGE: ./yourcode.out mfcc_file_name outputfile";
@@ -22,7 +23,7 @@ void writeToFile(std::string inpFileName, std::string outFileName, pred_t *resul
 
     for (size_t i = 0; i < 3; i++)
     {
-        outFile << results[i].label << " ";
+        outFile << numToLabel[results[i].label] << " ";
     }
 
     for (size_t i = 0; i < 3; i++)

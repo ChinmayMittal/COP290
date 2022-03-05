@@ -15,7 +15,6 @@
 #include"softmax.h"
 
 #include"interfaceNN.h"
-#include"predHelper.h"
 
 using namespace std ;
 
