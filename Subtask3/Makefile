@@ -5,8 +5,8 @@
 
 CXX = g++
 
-MKL_LIB_DIR = /opt/intel/oneapi/mkl/2022.0.2/lib/intel64
-MKL_INCLUDE_DIR = /opt/intel/oneapi/mkl/2022.0.2/include
+MKL_LIB_DIR = $(MKL_BLAS_PATH)/intel/oneapi/mkl/2022.0.2/lib/intel64
+MKL_INCLUDE_DIR = $(MKL_BLAS_PATH)/intel/oneapi/mkl/2022.0.2/include
 
 CPPFLAGS = -g -Wall -I$(MKL_INCLUDE_DIR) -fpic
 LDFLAGS_LIB = -g -L$(MKL_LIB_DIR) -Wl,-rpath,$(MKL_LIB_DIR)
