@@ -1,0 +1,4 @@
+mfcc_features/ca4d5368_nohash_5.txt yes _unknown_ left 0.99969 0.000288316 2.21197e-05 
+mfcc_features/695c2127_nohash_0.txt on _unknown_ off 0.998223 0.00142287 0.000338539 
+mfcc_features/695c2127_nohash_0.txt on _unknown_ off 0.998223 0.00142287 0.000338539 
+mfcc_features/695c2127_nohash_0.txt on _unknown_ off 0.998223 0.00142287 0.000338539 

@@ -38,6 +38,7 @@ int main(int argc, const char *argv[])
 {
     if (argc != 3)
     {
+        std::cout << "ERROR: PROGRAM TERMINATING....\n" ; 
         std::cout << USAGE << std::endl;
         return 0;
     }
@@ -46,8 +47,22 @@ int main(int argc, const char *argv[])
     std::string outputFile(argv[2]);
 
     pred_t results[12];
-    libaudioAPI(argv[1], results);
-    writeToFile(featuresFile, outputFile, results);
+    try{
+        libaudioAPI(argv[1], results);
+        writeToFile(featuresFile, outputFile, results);
+    }catch (string exp)
+    {
+        // ERROR HANDLING
+        cout << "ERROR:  PROGRAM TERMINATING....\n";
+        cout << exp << "\n";
+    }
+    catch (char const *exp)
+    {
+        cout << "ERROR:  PROGRAM TERMINATING....\n";
+        cout << exp << "\n";
+        
+    }
+
 
     return 0;
 }
