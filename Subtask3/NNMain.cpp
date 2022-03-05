@@ -11,7 +11,10 @@
 const std::string USAGE = "USAGE: ./yourcode.out mfcc_file_name outputfile";
 
 void writeToFile(std::string inpFileName, std::string outFileName, pred_t *results)
-{
+{   
+    /*
+        This function appends the output ( top 3 predictions of the AUDIO API ) to the output file 
+    */
     std::ofstream outFile;
     outFile.open(outFileName, std::ofstream::out | std::ofstream::app);
 
