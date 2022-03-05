@@ -7,7 +7,6 @@
 
 #include"vectorio.h"
 #include"matarr.h"
-#include"matrixAlgebra.h"
 
 #include"dnn_weights.h"
 

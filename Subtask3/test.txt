@@ -1,0 +1,2 @@
+mfcc_features/25e95412_nohash_4.txt up off on 0.998325 0.00163597 1.92163e-05 
+mfcc_features/3c257192_nohash_3.txt stop up off 0.999976 1.9714e-05 2.77321e-06 

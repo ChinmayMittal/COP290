@@ -16,7 +16,7 @@ MKL_LIB = -fopenmp -lmkl_intel_lp64 -lmkl_core -lmkl_gnu_thread -lpthread -lm -l
 MAIN_LIB = -laudio
 
 NN_LIB = libaudio.so
-objects_NN_lib = ann.o matarr.o matrixAlgebra.o mklopt.o relu.o softmax.o timing.o validators.o vectorio.o
+objects_NN_lib = ann.o matarr.o mklopt.o relu.o softmax.o timing.o validators.o vectorio.o
 
 MAIN_EXEC = yourcode.out
 objects_main_exec = NNMain.o matarr.o vectorio.o
@@ -32,8 +32,6 @@ $(MAIN_EXEC): $(objects_main_exec)
 ann.o: optimization.h vectorio.h relu.h softmax.h matarr.h dnn_weights.h interfaceNN.h
 
 matarr.o: matarr.h
-
-matrixAlgebra.o: matrixAlgebra.h
 
 mklopt.o: optimization.h matarr.h timing.h
 
