@@ -54,6 +54,29 @@ mfcc_features/695c2127_nohash_0.txt on _unknown_ off 0.998223 0.00142287 0.00033
 
 ```
 
+### Description of libaudio Library 
+---
+
+The main file for this library is ```ann.cpp```, this file uses the mkl implementation ( refer ```optimization.h``` and ```mklopt.cpp```) for fullyconnected layer computations and our custom implementation for softmax layer ( refer ```softmax.cpp``` and ```softmax.h```). 
+
+The pretrained weights are present in ```dnn_weights.h``` ( as 1-D vectors ), ```ann.cpp``` converts these 1-D vectors to matrices of appropriate size for the matrix multiplication operations in the Neural Network, the relevant function and header for this conversion are present in ```matarr.cpp``` and ```matarr.h```.
+
+The output datatype definition and function prototype, which are required by users of this library are present in ```interfaceNN.h``` as follows
+
+```cpp
+typedef struct
+{
+    int label;
+    float prob;
+} pred_t;
+
+void libaudioAPI(const char *audiofeatures, pred_t *pred);
+
+
+```
+
+This file needs to be included in the project by external users. Along wtih including this header one also has to link the dynamic library libaudio.so
+
 ### Error Handling 
 ---
 
