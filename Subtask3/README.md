@@ -24,7 +24,7 @@ We use INTEL MKL, which is the fastest implementation from Subtask2 for fullycon
 One needs to set ```MKL_BLAS_PATH```, the environment variable which specifies the path to intel mkl library
 
 ```bash
-export MKL_BLAS_PATH=/opt
+export MKL_BLAS_PATH=/opt/intel/oneapi/mkl/2022.0.2
 ```
 
 
@@ -32,8 +32,8 @@ export MKL_BLAS_PATH=/opt
 This environment variable will be used in the Makefile to link the math kernel library 
 
 ```bash
-MKL_LIB_DIR = $(MKL_BLAS_PATH)/intel/oneapi/mkl/2022.0.2/lib/intel64
-MKL_INCLUDE_DIR = $(MKL_BLAS_PATH)/intel/oneapi/mkl/2022.0.2/include
+MKL_LIB_DIR = $(MKL_BLAS_PATH)/lib/intel64
+MKL_INCLUDE_DIR = $(MKL_BLAS_PATH)/include
 ```
 
 Type make to create the shared object file  (```libaudio.so```) and the main executable (```yourcode.out```) to run the program which uses the library object file 
@@ -50,7 +50,7 @@ Eg
 The output will be appended at the end of the text file specified as follows 
 
 ```txt
-mfcc_features/695c2127_nohash_0.txt on _unknown_ off 0.998223 0.00142287 0.000338539 
+mfcc_features/695c2127_nohash_0.txt on unknown off 0.998223 0.00142287 0.000338539 
 
 ```
 
@@ -70,7 +70,7 @@ typedef struct
     float prob;
 } pred_t;
 
-void libaudioAPI(const char *audiofeatures, pred_t *pred);
+pred_t* void libaudioAPI(const char *audiofeatures, pred_t *pred);
 
 
 ```

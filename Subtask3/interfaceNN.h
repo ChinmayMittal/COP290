@@ -5,4 +5,4 @@ typedef struct
     float prob;
 } pred_t;
 
-void libaudioAPI(const char *audiofeatures, pred_t *pred);
+pred_t* libaudioAPI(const char *audiofeatures, pred_t *pred);

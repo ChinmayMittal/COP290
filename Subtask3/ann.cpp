@@ -25,7 +25,7 @@ bool predictionComparator( pred_t pred1 , pred_t pred2 ) {
     return pred1.prob > pred2.prob ;  
 }
 
-void libaudioAPI(const char *audiofeatures, pred_t *pred){
+pred_t* libaudioAPI(const char *audiofeatures, pred_t *pred){
     
     string filename( audiofeatures)  ; 
     // read the input features for the neural network ( [ 1 X 250 ] ) , the last parameter denotes row major order 
@@ -49,6 +49,8 @@ void libaudioAPI(const char *audiofeatures, pred_t *pred){
 
     // sort all predictions based on the output probability 
     sort( pred , pred + 12 , predictionComparator ) ; 
+
+    return pred ; 
 
 }
 
